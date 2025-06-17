@@ -159,3 +159,8 @@ color: #2e2f42;
     transform: rotate(360deg);
   }
 } 
+
+.load-more-btn {
+  margin-top: 32px;
+  margin-bottom: 44px;
+}
