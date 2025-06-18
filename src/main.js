@@ -40,7 +40,7 @@ loadMoreBtn.addEventListener("click", async () => {
         console.log(height);
         
         window.scrollBy({
-            top: height * 2,
+            top: height * 3,
             behavior: "smooth",
         });
     }
