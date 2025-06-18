@@ -5,7 +5,7 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 const form = document.querySelector(".form");
-const loadMoreBtn = document.querySelector(".load-more-btn")
+const loadMoreBtn = document.querySelector(".load-more-btn");
 
 let q = '';
 let page = 1;
@@ -33,17 +33,24 @@ form.addEventListener('submit', async (event) => {
 loadMoreBtn.addEventListener("click", async () => {
     showLoader();
     await loadGallery();
-    window.scrollBy({
-        top: 524.75 * 2,
-        behavior: "smooth",
-    });
+    const imageBoxes = document.querySelectorAll('.image-box')
+    if (imageBoxes.length) {
+        const firstBox = imageBoxes[0];
+        const height = firstBox.getBoundingClientRect().height;
+        console.log(height);
+        
+        window.scrollBy({
+            top: height * 2,
+            behavior: "smooth",
+        });
+    }
 }
 )
 
 const loadGallery = async () => {
     try {
+        hideLoadMoreButton();
         const response = await getImagesByQuery(q, page);
-
         if (page === 1) {
             totalHits = response.totalHits;
             loadedHits = 0;
@@ -52,7 +59,7 @@ const loadGallery = async () => {
                 message: "Sorry, there are no images matching your search query. Please try again!",
                 closeOnClick: true,
                 position: "topRight",
-            })
+            });
             return;
             }
         }
