@@ -25,6 +25,7 @@ form.addEventListener('submit', async (event) => {
         return;
     }
     page = 1;
+    loadedHits = 0;
     clearGallery()
     showLoader()
     await loadGallery()
@@ -40,7 +41,7 @@ loadMoreBtn.addEventListener("click", async () => {
         console.log(height);
         
         window.scrollBy({
-            top: height * 3,
+            top: height * 2,
             behavior: "smooth",
         });
     }
@@ -53,7 +54,6 @@ const loadGallery = async () => {
         const response = await getImagesByQuery(q, page);
         if (page === 1) {
             totalHits = response.totalHits;
-            loadedHits = 0;
             if (!response.hits.length) {
             iziToast.error({
                 message: "Sorry, there are no images matching your search query. Please try again!",
